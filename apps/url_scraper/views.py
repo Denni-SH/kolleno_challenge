@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
 from apps.url_scraper.models import ScrapedURL
-from apps.url_scraper.serializers import ScrapedURLSerializer
+from apps.url_scraper.serializers import ScrapedURLSerializer, CreateScrapedURLSerializer
 from apps.url_scraper.services import ScrapedURLService
 from apps.url_scraper.tasks import scrape_url_task
 
@@ -24,7 +24,7 @@ class ScrapedURLViewSet(ModelViewSet):
         # scrape_url_task.delay(scraped_url.id)
         scrape_url_task(scraped_url.id)
 
-        response_data = self.get_serializer(scraped_url).data
+        response_data = CreateScrapedURLSerializer(scraped_url).data
         return Response(response_data, status=status.HTTP_201_CREATED)
 
     @action(detail=True, methods=['get'])

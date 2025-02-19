@@ -27,3 +27,9 @@ class ScrapedURLSerializer(serializers.ModelSerializer):
         if not parsed_url.scheme or not parsed_url.netloc:
             raise serializers.ValidationError("Invalid URL format.")
         return value
+
+
+class CreateScrapedURLSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ScrapedURL
+        fields = '__all__'
