@@ -30,6 +30,7 @@ INSTALLED_APPS = [
 
     # Internal modules
     'apps.url_scraper',
+    'apps.crypto_exchange',
 ]
 
 MIDDLEWARE = [
@@ -143,3 +144,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CELERY_BROKER_URL = 'redis://default:vUoYIxFZiflTGjcRvEtavhzCRiojBXqI@gondola.proxy.rlwy.net:27395'
 CELERY_ACCEPT_CONTENT = ['json', ]
 CELERY_TASK_SERIALIZER = 'json'
+
+EXCHANGE_RATE_API_KEY = env("EXCHANGE_RATE_API_KEY", default="f72bbbfa123170e0d06160fa")
