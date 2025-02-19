@@ -33,3 +33,7 @@ class CreateScrapedURLSerializer(serializers.ModelSerializer):
     class Meta:
         model = ScrapedURL
         fields = '__all__'
+
+
+class SwaggerCreateScrapedURLRequestSerializer(serializers.Serializer):
+    url = serializers.URLField(required=True)
