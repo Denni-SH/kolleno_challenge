@@ -7,16 +7,11 @@ import environ
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 env = environ.Env(DEBUG=(bool, False))
-environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
+# environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
 
-SECRET_KEY = env('SECRET_KEY')
-
-# SECRET_KEY = 'django-insecure-&wdgdfsylmp6qny4-e7+_h(5t351x62d@g0k4=)9%!go9=5#xy'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
+SECRET_KEY = env("SECRET_KEY", default='some_code')
+ALLOWED_HOSTS = env("ALLOWED_HOSTS", default='*').split(",")
+DEBUG = env("DEBUG", default=True)
 
 
 # Application definition
@@ -70,16 +65,26 @@ WSGI_APPLICATION = 'kolleno_coding_challenge.wsgi.application'
 
 
 # Database
+# DATABASE_URL = os.getenv("DATABASE_URL")
+# print('DATABASE_URL is ', DATABASE_URL)
+# if DATABASE_URL:
+#     import dj_database_url
+#
+#     DATABASES = {
+#         "default": dj_database_url.parse(DATABASE_URL)
+#     }
+# else:
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'HOST': env('DB_HOST'),
-        'NAME': env('DB_NAME'),
-        'USER': env('DB_USER'),
-        'PASSWORD': env('DB_PASS'),
-        'PORT': env('DB_PORT'),
+        'NAME': 'railway',
+        'USER': 'postgres',
+        'PASSWORD': 'gwYSAGUFNQHghfqavPUJvsFYhfwkpvuQ',
+        'HOST': 'postgres.railway.internal',
+        'PORT': '5432',
     }
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -135,7 +140,6 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Celery
-CELERY_BROKER_URL = os.environ.get('CELERY_BROKER_URL')
+CELERY_BROKER_URL = 'redis://default:vUoYIxFZiflTGjcRvEtavhzCRiojBXqI@gondola.proxy.rlwy.net:27395'
 CELERY_ACCEPT_CONTENT = ['json', ]
 CELERY_TASK_SERIALIZER = 'json'
-CELERY_RESULT_BACKEND = CELERY_BROKER_URL

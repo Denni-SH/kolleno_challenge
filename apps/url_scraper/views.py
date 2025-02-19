@@ -21,7 +21,6 @@ class ScrapedURLViewSet(ModelViewSet):
         url = serializer.validated_data['url']
 
         scraped_url = ScrapedURLService.create_scraped_url(url)
-        # TODO
         # scrape_url_task.delay(scraped_url.id)
         scrape_url_task(scraped_url.id)
 
